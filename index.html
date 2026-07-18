@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIILE E-LEARNING  - Soo Gali</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        .logo { width: 80px; height: 80px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold; }
+        h2 { color: #333; margin-bottom: 25px; font-size: 22px; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 5px; color: #666; font-size: 14px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; outline: none; transition: 0.3s; }
+        input:focus { border-color: #007bff; box-shadow: 0 0 5px rgba(0,123,255,0.5); }
+        button { width: 100%; padding: 12px; background: #007bff; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Meesha Loogada (Waad badali kartaa adoo sawir soo gashanaya) -->
+    <div class="logo">EDU</div> 
+    <h2>BIILE E-LEARNING</h2>
+    
+    <form id="loginForm" onsubmit="gudbi(event)">
+        <div class="input-group">
+            <label for="username">Magaca Ardayga (Username)</label>
+            <input type="text" id="username" required placeholder="Gali username kaaga">
+        </div>
+        <div class="input-group">
+            <label for="password">Furaha (Password)</label>
+            <input type="password" id="password" required placeholder="Gali password kaaga">
+        </div>
+        <button type="submit">LOGIN</button>
+    </form>
+</div>
+
+<script>
+    function gudbi(event) {
+        event.preventDefault();
+        // Halkan wuxuu toos ugu gudbinayaa bogga labaad ee casharada
+        window.location.href = "courses.html";
+    }
+</script>
+
+</body>
+</html>
