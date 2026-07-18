@@ -6,23 +6,31 @@
     <title>BIILE E-LEARNING  - Soo Gali</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        .logo { width: 80px; height: 80px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold; }
-        h2 { color: #333; margin-bottom: 25px; font-size: 22px; }
+        body { background: #f4f6f4; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: center; border-top: 5px solid #1b6333; }
+        
+        /* Halkan waxaa lagu hagaajiyay cabbirka logada */
+        .logo-img { width: 120px; height: 120px; object-fit: contain; margin: 0 auto 15px; display: block; }
+        
+        h2 { color: #1b6333; margin-bottom: 25px; font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
         .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 5px; color: #666; font-size: 14px; }
-        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus { border-color: #007bff; box-shadow: 0 0 5px rgba(0,123,255,0.5); }
-        button { width: 100%; padding: 12px; background: #007bff; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #0056b3; }
+        label { display: block; margin-bottom: 5px; color: #444; font-size: 14px; font-weight: 500; }
+        input { width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 16px; outline: none; transition: 0.3s; }
+        
+        /* Midabka marka la gujiyo input-ka waxaa laga dhigay cagaar */
+        input:focus { border-color: #1b6333; box-shadow: 0 0 5px rgba(27,99,51,0.3); }
+        
+        /* Badhanka waxaa loo beddelay cagaar */
+        button { width: 100%; padding: 12px; background: #1b6333; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #124222; }
     </style>
 </head>
 <body>
 
 <div class="login-container">
-    <!-- Meesha Loogada (Waad badali kartaa adoo sawir soo gashanaya) -->
-    <div class="LOGO.png">EDU</div> 
+    <!-- Logadii cagaarka ahayd ee bilaa background-ka ahayd (Hubi in magaca sawirku yahay LOGO.png) -->
+    <img src="LOGO.png" alt="BIILE E-LEARNING Logo" class="logo-img"> 
+    
     <h2>BIILE E-LEARNING</h2>
     
     <form id="loginForm" onsubmit="gudbi(event)">
@@ -41,7 +49,6 @@
 <script>
     function gudbi(event) {
         event.preventDefault();
-        // Halkan wuxuu toos ugu gudbinayaa bogga labaad ee casharada
         window.location.href = "courses.html";
     }
 </script>
