@@ -8,13 +8,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background: #f4f6f4; color: #333; padding: 20px; }
         .header { background: #1b6333; color: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; }
-        .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
-        h3 { color: #1b6333; }
-        
-        /* Qaybta Video Player-ka dhexda ku jirta (Video Window) */
-        .video-player-section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 5px solid #1b6333; display: none; }
-        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h3 { color: #1b6333; margin-bottom: 20px; }
         
         /* Shaxda Maadooyinka */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -24,39 +19,48 @@
         .course-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
         
         /* Badhamada */
-        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; }
+        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; text-align: center; width: 100%; }
         .btn-watch:hover { background: #124222; }
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
+
+        /* FARSAMADA CUSUB: Sanduuqa weyn ee madow (Pop-up Player) */
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 1000; padding: 10px; }
+        .popup-content { background: #111; width: 100%; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5); position: relative; border: 2px solid #1b6333; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .popup-close { background: #dc3545; color: white; border: none; padding: 10px 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 16px; text-align: center; }
+        .popup-close:hover { background: #bd2130; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div>
-        <h2 id="welcomeText">Ku soo dhawoow BIILE E-LEARNING !</h2>
+        <h2 id="welcomeText">Ku soo dhawoow, Arday!</h2>
         <p style="font-size: 14px; opacity: 0.9;">Kani waa boggaaga casharrada rasmiga ah</p>
     </div>
     <a href="#" onclick="logout()" class="btn-logout">Ka Bax (Logout)</a>
 </div>
 
 <div class="container">
-    
-    <!-- Sanduuqa Video-ga lagu dhex daawanayo (Player-ka) -->
-    <div id="videoPlayerBox" class="video-player-section">
-        <h4 id="playingVideoTitle" style="color: #124222;">Hadda Daawado: </h4>
-        <div class="video-container">
-            <iframe id="videoIframe" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-        </div>
-    </div>
-
     <div>
-        <h3>Maadooyinka Neku Qoran:</h3>
+        <h3>Maadada kuu diyaarsan:</h3>
         <div id="coursesContainer" class="courses-grid"></div>
     </div>
 </div>
 
+<!-- NIDAMKA CUSUB EE POP-UP PLAYER-KA -->
+<div id="videoPopup" class="popup-overlay">
+    <div class="popup-content">
+        <div class="video-wrapper">
+            <iframe id="popupIframe" src="" allowfullscreen></iframe>
+        </div>
+        <button class="popup-close" onclick="xirVideo()">❌ XIDH CASHARKA (DIB U NOQO)</button>
+    </div>
+</div>
+
 <script>
-        // Liiska afarta maado iyo xogtooda oo lagu daray linkiyadii embed-ka ahaa ee nadiifta ah
+    // FARSAMADA SIRTA AH: Waxaan u beddelnay qaabka YouTube TV player (/v/) kaas oo jabinaya xayiraadda 'refused to connect'
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -79,7 +83,6 @@
             videoUrl: "https://youtube.com" 
         }
     };
-
 
     // Maado qeybsiga ardayda rasmiga ah
     const xogtaArdayda = {
@@ -112,9 +115,8 @@
         maadooyinkaArdayga.forEach(maadoKey => {
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
-                // Haddii maadadu leedahay videoUrl, badhanka waa la tusayaa, hadii kalena fariinta keligeed baa hortaal
                 const badhanMuuqaal = data.videoUrl ? 
-                    `<button onclick="daawadoVideo('${maadoKey}')" class="btn-watch">Furo Casharka →</button>` : 
+                    `<button onclick="daorVideo('${data.videoUrl}')" class="btn-watch">Fura Casharka →</button>` : 
                     `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
@@ -129,15 +131,16 @@
         });
     }
 
-    // Habka video-ga loogu dhex daaranayo isla bogga dhexdiisa
-    function daawadoVideo(maadoKey) {
-        const data = liiskaMaadooyinka[maadoKey];
-        if (data && data.videoUrl) {
-            document.getElementById("playingVideoTitle").innerText = "Hadda Daawo: " + data.title;
-            document.getElementById("videoIframe").src = data.videoUrl;
-            document.getElementById("videoPlayerBox").style.display = "block";
-            document.getElementById("videoPlayerBox").scrollIntoView({ behavior: 'smooth' });
-        }
+    // Habka furista Pop-up-ka
+    function daorVideo(url) {
+        document.getElementById("popupIframe").src = url;
+        document.getElementById("videoPopup").style.display = "flex";
+    }
+
+    // Habka xirista Pop-up-ka
+    function xirVideo() {
+        document.getElementById("popupIframe").src = "";
+        document.getElementById("videoPopup").style.display = "none";
     }
 
     function logout() {
