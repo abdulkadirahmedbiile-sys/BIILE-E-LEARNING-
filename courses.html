@@ -22,21 +22,13 @@
         .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; text-align: center; width: 100%; }
         .btn-watch:hover { background: #124222; }
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
-
-        /* FARSAMADA CUSUB: Sanduuqa weyn ee madow (Pop-up Player) */
-        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 1000; padding: 10px; }
-        .popup-content { background: #111; width: 100%; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5); position: relative; border: 2px solid #1b6333; }
-        .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .popup-close { background: #dc3545; color: white; border: none; padding: 10px 20px; font-weight: bold; width: 100%; cursor: pointer; font-size: 16px; text-align: center; }
-        .popup-close:hover { background: #bd2130; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div>
-        <h2 id="welcomeText">Ku soo dhawoow, Arday!</h2>
+        <h2 id="welcomeText">Ku soo dhawaada, Arday!</h2>
         <p style="font-size: 14px; opacity: 0.9;">Kani waa boggaaga casharrada rasmiga ah</p>
     </div>
     <a href="#" onclick="logout()" class="btn-logout">Ka Bax (Logout)</a>
@@ -44,23 +36,13 @@
 
 <div class="container">
     <div>
-        <h3>Maadada kuu diyaarsan:</h3>
+        <h3>Maadooyinka Neku Qoran:</h3>
         <div id="coursesContainer" class="courses-grid"></div>
     </div>
 </div>
 
-<!-- NIDAMKA CUSUB EE POP-UP PLAYER-KA -->
-<div id="videoPopup" class="popup-overlay">
-    <div class="popup-content">
-        <div class="video-wrapper">
-            <iframe id="popupIframe" src="" allowfullscreen></iframe>
-        </div>
-        <button class="popup-close" onclick="xirVideo()">❌ XIDH CASHARKA (DIB U NOQO)</button>
-    </div>
-</div>
-
 <script>
-    // FARSAMADA SIRTA AH: Waxaan u beddelnay qaabka YouTube TV player (/v/) kaas oo jabinaya xayiraadda 'refused to connect'
+    // Linkiyadii caadiga ahaa ayaa dib loogu soo celiyay si loogu furo nidaamka daaqada yar ee gaarka ah
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -116,7 +98,7 @@
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
                 const badhanMuuqaal = data.videoUrl ? 
-                    `<button onclick="daorVideo('${data.videoUrl}')" class="btn-watch">Fura Casharka →</button>` : 
+                    `<button onclick="furaDaaqadCashar('${data.videoUrl}')" class="btn-watch">Fura Casharka →</button>` : 
                     `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
@@ -131,16 +113,19 @@
         });
     }
 
-    // Habka furista Pop-up-ka
-    function daorVideo(url) {
-        document.getElementById("popupIframe").src = url;
-        document.getElementById("videoPopup").style.display = "flex";
-    }
-
-    // Habka xirista Pop-up-ka
-    function xirVideo() {
-        document.getElementById("popupIframe").src = "";
-        document.getElementById("videoPopup").style.display = "none";
+    // FARSAMADA CUSUB: Daaqad yar oo dul-sallaxanta oo cabbiran (Pop-up Window)
+    function furaDaaqadCashar(url) {
+        const dherer = 550;
+        const ballac = 850;
+        const bidix = (screen.width - ballac) / 2;
+        const sare = (screen.height - dherer) / 2;
+        
+        // Tani waxay qasbaysaa in browser-ku furo kaliya sanduuq yar oo video-ga uu ku dhex jiro
+        window.open(
+            url, 
+            "BiileELearningPlayer", 
+            `width=${ballac},height=${dherer},top=${sare},left=${bidix},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
+        );
     }
 
     function logout() {
