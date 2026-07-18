@@ -3,69 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maadooyinka kuu diyaarsan</title>
+    <title>BIILE E-LEARNING - Casharradaada</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f4f7f6; color: #333; }
-        header { background: #007bff; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        header h1 { font-size: 20px; }
-        .logout-btn { background: #ff4d4d; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-weight: bold; }
-        .logout-btn:hover { background: #cc0000; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        h2 { margin-bottom: 20px; color: #444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f4f6f4; color: #333; padding: 20px; }
+        .header { background: #1b6333; color: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h3 { margin-bottom: 20px; color: #1b6333; }
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .course-card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .course-image { background: #e9ecef; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #007bff; }
-        .course-info { padding: 20px; }
-        .course-info h3 { margin-bottom: 10px; font-size: 18px; color: #222; }
-        .course-info p { color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 15px; }
-        .view-btn { display: inline-block; background: #28a745; color: white; padding: 10px 15px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: bold; text-align: center; }
-        .view-btn:hover { background: #218838; }
+        .course-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-top: 4px solid #1b6333; transition: 0.3s; }
+        .course-card:hover { transform: translateY(-5px); }
+        .course-card h4 { margin-bottom: 10px; color: #124222; }
+        .course-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
+        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; }
+        .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>BIILE E-LEARNING - Dashboard</h1>
-    <a href="index.html" class="logout-btn">LOGOUT (ka bax)</a>
-</header>
+<div class="header">
+    <div>
+        <h2 id="welcomeText">Ku soo dhawaada, Arday!</h2>
+        <p style="font-size: 14px; opacity: 0.9;">Kani waa boggaaga casharrada rasmiga ah</p>
+    </div>
+    <a href="#" onclick="logout()" class="btn-logout">Ka Bax (Logout)</a>
+</div>
 
 <div class="container">
-    <h2>Casharada Laguu Talagalay</h2>
-    
-    <div class="courses-grid">
-        <!--Maadada 1aad -->
-        <div class="course-card">
-            <div class="course-image">💻</div>
-            <div class="course-info">
-                <h3>mathematics form 1</h3>
-                <p>Baro asaaska xisaabta fasalka form1 </p>
-                <a href="#" class="view-btn">Daawo Casharka</a>
-            </div>
-        </div>
-
-        <!-- Maadada 2aad -->
-        <div class="Physics form 4">
-            <div class="course-image">📊</div>
-            <div class="course-info">
-                <h3>physics form 4</h3>
-                <p>baro maadada physicska </p>
-                <a href="#" class="view-btn">Daawo Casharka</a>
-            </div>
-        </div>
-
-        <!-- Maadada 3aad -->
-        <div class="course-card">
-            <div class="course-image">📱</div>
-            <div class="course-info">
-                <h3>UI/UX Design Casri Ah</h3>
-                <p>Baro sida loo qaabeeyo muuqaalka Apps-ka iyo Websaydhada adoo isticmaalaya Figma.</p>
-                <a href="#" class="view-btn">Daawo Casharka</a>
-            </div>
-        </div>
-    </div>
+    <h3>Maadooyinka Neku Qoran:</h3>
+    <div id="coursesContainer" class="courses-grid"></div>
 </div>
+
+<script>
+    // Liiska afarta maado iyo xogtooda oo faahfaahsan
+    const liiskaMaadooyinka = {
+        "xisaab": {
+            title: "Xisaab (Mathematics)",
+            desc: "Barashada cutubyada iyo casharrada maaddada Xisaabta ee Biile E-learning.",
+            link: "https://youtube.com" 
+        },
+        "communication": {
+            title: "Xirfadaha Xiriirka (Communication Skills)",
+            desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
+            link: "https://youtube.com"
+        },
+        "physics": {
+            title: "Fiisigis (Physics)",
+            desc: "Barashada cutubyada iyo casharrada maaddada Fiisigiska ee Biile E-learning.",
+            link: "https://youtube.com"
+        },
+        "arabic": {
+            title: "Luuqada Carabiga (Arabic Language)",
+            desc: "Barashada naxwaha, higgaadda, iyo ku hadalka Luuqada Carabiga.",
+            link: "https://youtube.com"
+        }
+    };
+
+    // HALKAN AYAA LAGU KALA MAAMULAYAA MAADO_QEYBSIGA ARDAYDA:
+    const xogtaArdayda = {
+        // Ardayda Xisaabta raba
+        "siciid": ["xisaab"], "nuur": ["xisaab"], "faarax": ["xisaab"], 
+        "guuleed": ["xisaab"], "carab": ["xisaab"], "kuusane": ["xisaab"], "buurane": ["xisaab"],
+
+        // Ardayda Communication Skills raba
+        "yusro": ["communication"], "falis": ["communication"], "nuurt": ["communication"], 
+        "dhuuxo": ["communication"], "sareedo": ["communication"], "barni": ["communication"],
+
+        // Ardayda Physics raba
+        "cali": ["physics"], "lugay": ["physics"], "afey": ["physics"],
+
+        // Ardayda Arabic Language raba
+        "saxar": ["arabic"], "cumar": ["arabic"]
+    };
+
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+        window.location.href = "index.html";
+    } else {
+        document.getElementById("welcomeText").innerText = "Ku soo dhawaada, " + loggedInUser.toUpperCase();
+        bixiMaadooyinka(loggedInUser);
+    }
+
+    function bixiMaadooyinka(username) {
+        const container = document.getElementById("coursesContainer");
+        const maadooyinkaArdayga = xogtaArdayda[username] || [];
+
+        if (maadooyinkaArdayga.length === 0) {
+            container.innerHTML = "<p>Weli laguma qorin wax maado ah. Fadlan la xiriir maamulka Biile E-learning.</p>";
+            return;
+        }
+
+        maadooyinkaArdayga.forEach(maadoKey => {
+            const data = liiskaMaadooyinka[maadoKey];
+            if (data) {
+                const card = `
+                    <div class="course-card">
+                        <h4>${data.title}</h4>
+                        <p>${data.desc}</p>
+                        <a href="${data.link}" target="_blank" class="btn-watch">Fura Casharka →</a>
+                    </div>
+                `;
+                container.innerHTML += card;
+            }
+        });
+    }
+
+    function logout() {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+    }
+</script>
 
 </body>
 </html>
