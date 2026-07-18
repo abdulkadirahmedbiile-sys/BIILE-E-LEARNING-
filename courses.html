@@ -11,10 +11,10 @@
         .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
         h3 { color: #1b6333; }
         
-        /* Player-ka Google Drive ee rasmiga ah (Video Box) */
+        /* Video Player-ka rasmiga ah ee salka bogga */
         .video-player-section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 5px solid #1b6333; display: none; }
-        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-container { position: relative; width: 100%; max-width: 800px; margin: 15px auto 0; border-radius: 8px; overflow: hidden; background: #000; }
+        .video-container video { width: 100%; height: auto; max-height: 450px; display: block; background: #000; }
         
         /* Shaxda Maadooyinka */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -41,11 +41,11 @@
 
 <div class="container">
     
-    /* Sanduuqa weyn ee Video-ga lagu dhex daawanayo */
+    <!-- Sanduuqa weyn ee Video Player-ka ee rasmiga ah -->
     <div id="videoPlayerBox" class="video-player-section">
         <h4 id="playingVideoTitle" style="color: #124222;">Hadda Daawado: </h4>
-        <div class="video-container">
-            <iframe id="videoIframe" src="" allow="autoplay"></iframe>
+        <div id="mediaContainer" class="video-container">
+            <!-- Nidaamka HTML5 Video ayaa halkan si toos ah ugu dhex dhalanaya -->
         </div>
     </div>
 
@@ -56,7 +56,7 @@
 </div>
 
 <script>
-    // Liiska afarta maado oo lagu daray linkigaaga rasmiga ah ee Google Drive ee la habeeyey
+    // FARSAMADA SIRTA AH: Waxaan u beddelnay qaabka "uc?export=download&id=" oo si toos ah u soo daadaya muuqaalka (Direct Stream)
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -76,12 +76,12 @@
         "arabic": {
             title: "Luuqada Carabiga (Arabic Language)",
             desc: "Barashada naxwaha, higgaadda, iyo ku hadalka Luuqada Carabiga.",
-            /* HALKAN WAXAA LA GELIYAY LINKIGII CUSBAA EE CASHARKAAGA */
+            /* LINKIGAAGA DHABTA AH EE LA HABEYEY SI UU SAN GOOGLE U DIIDIN */
             videoUrl: "https://google.com" 
         }
     };
 
-    // Maado qeybsiga dhamaan ardaydaadii rasmiga ahayd
+    // Maado qeybsiga ardayda rasmiga ah
     const xogtaArdayda = {
         "siciid": ["xisaab"], "nuur": ["xisaab"], "faarax": ["xisaab"], 
         "guuleed": ["xisaab"], "carab": ["xisaab"], "kuusane": ["xisaab"], "buurane": ["xisaab"],
@@ -113,7 +113,7 @@
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
                 const badhanMuuqaal = data.videoUrl ? 
-                    `<button onclick="daawadoVideo('${maadoKey}')" class="btn-watch">Fura Casharka →</button>` : 
+                    `<button onclick="shidMuuqaal('${maadoKey}')" class="btn-watch">Fura Casharka →</button>` : 
                     `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
@@ -128,11 +128,22 @@
         });
     }
 
-    function daawadoVideo(maadoKey) {
+    // Nidaamka casriga ah ee u badalaya koodhka HTML5 Video player nadiif ah
+    function shidMuuqaal(maadoKey) {
         const data = liiskaMaadooyinka[maadoKey];
+        const mediaContainer = document.getElementById("mediaContainer");
+        
         if (data && data.videoUrl) {
             document.getElementById("playingVideoTitle").innerText = "Hadda Daawado: " + data.title;
-            document.getElementById("videoIframe").src = data.videoUrl;
+            
+            // controlsList="nodownload" waxay ka hor tageysaa in ardaydu soo degsadaan casharka
+            mediaContainer.innerHTML = `
+                <video controls controlsList="nodownload" oncontextmenu="return false;" autoplay>
+                    <source src="${data.videoUrl}" type="video/mp4">
+                    Browser-kaagu ma caawinayo nidaamkan video player-ka ah.
+                </video>
+            `;
+            
             document.getElementById("videoPlayerBox").style.display = "block";
             document.getElementById("videoPlayerBox").scrollIntoView({ behavior: 'smooth' });
         }
