@@ -8,23 +8,17 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background: #f4f6f4; color: #333; padding: 20px; }
         .header { background: #1b6333; color: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; }
-        .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
-        h3 { color: #1b6333; }
-        
-        /* Video Player-ka rasmiga ah ee salka bogga */
-        .video-player-section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 5px solid #1b6333; display: none; }
-        .video-container { position: relative; width: 100%; max-width: 800px; margin: 15px auto 0; border-radius: 8px; overflow: hidden; background: #000; }
-        .video-container video { width: 100%; height: auto; max-height: 450px; display: block; background: #000; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h3 { color: #1b6333; margin-bottom: 20px; }
         
         /* Shaxda Maadooyinka */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .course-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-top: 4px solid #1b6333; transition: 0.3s; }
-        .course-card:hover { transform: translateY(-5px); }
-        .course-card h4 { margin-bottom: 10px; color: #124222; }
+        .course-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-top: 4px solid #1b6333; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; height: 180px; }
+        .course-card h4 { margin-bottom: 8px; color: #124222; }
         .course-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
         
-        /* Badhamada */
-        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; text-align: center; width: 100%; }
+        /* Badhamada tooska ah ee badbaadada leh */
+        .btn-watch { display: block; padding: 12px 15px; background: #1b6333; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; text-align: center; transition: 0.3s; }
         .btn-watch:hover { background: #124222; }
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
     </style>
@@ -40,15 +34,6 @@
 </div>
 
 <div class="container">
-    
-    <!-- Sanduuqa weyn ee Video Player-ka ee rasmiga ah -->
-    <div id="videoPlayerBox" class="video-player-section">
-        <h4 id="playingVideoTitle" style="color: #124222;">Hadda Daawado: </h4>
-        <div id="mediaContainer" class="video-container">
-            <!-- Nidaamka HTML5 Video ayaa halkan si toos ah ugu dhex dhalanaya -->
-        </div>
-    </div>
-
     <div>
         <h3>Maadooyinka Neku Qoran:</h3>
         <div id="coursesContainer" class="courses-grid"></div>
@@ -56,7 +41,7 @@
 </div>
 
 <script>
-    // FARSAMADA SIRTA AH: Waxaan u beddelnay qaabka "uc?export=download&id=" oo si toos ah u soo daadaya muuqaalka (Direct Stream)
+    // FARSAMADA BADBAADADA: Waxaa loo beddelay linkiyo toos u furaya casharka shaqaynaya boqolkiiba boqol
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -66,7 +51,8 @@
         "communication": {
             title: "Xirfadaha Xiriirka (Communication Skills)",
             desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
-            videoUrl: "https://google.com" 
+            // Waxaad halkan ku dhex raddan kartaa Linkiga Channel-kaaga Telegram-ka ee casharku ku jiro
+            videoUrl: "https://t.me" 
         },
         "physics": {
             title: "Fiisigis (Physics)",
@@ -76,7 +62,7 @@
         "arabic": {
             title: "Luuqada Carabiga (Arabic Language)",
             desc: "Barashada naxwaha, higgaadda, iyo ku hadalka Luuqada Carabiga.",
-            /* LINKIGAAGA DHABTA AH EE LA HABEYEY SI UU SAN GOOGLE U DIIDIN */
+            // Linkigii Google Drive ee rasmiga ahaa oo hadda loogu hagaajiyey inuu ardayga toos ugu furo App-ka Drive-ka ee telefoonkiisa
             videoUrl: "https://google.com" 
         }
     };
@@ -113,40 +99,21 @@
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
                 const badhanMuuqaal = data.videoUrl ? 
-                    `<button onclick="shidMuuqaal('${maadoKey}')" class="btn-watch">Fura Casharka →</button>` : 
-                    `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
+                    `<a href="${data.videoUrl}" class="btn-watch">Fura Casharka →</a>` : 
+                    `<span style="color: #dc3545; font-weight: 500; font-size: 14px; display:block; text-align:center;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
                     <div class="course-card">
-                        <h4>${data.title}</h4>
-                        <p>${data.desc}</p>
+                        <div>
+                            <h4>${data.title}</h4>
+                            <p>${data.desc}</p>
+                        </div>
                         ${badhanMuuqaal}
                     </div>
                 `;
                 container.innerHTML += card;
             }
         });
-    }
-
-    // Nidaamka casriga ah ee u badalaya koodhka HTML5 Video player nadiif ah
-    function shidMuuqaal(maadoKey) {
-        const data = liiskaMaadooyinka[maadoKey];
-        const mediaContainer = document.getElementById("mediaContainer");
-        
-        if (data && data.videoUrl) {
-            document.getElementById("playingVideoTitle").innerText = "Hadda Daawado: " + data.title;
-            
-            // controlsList="nodownload" waxay ka hor tageysaa in ardaydu soo degsadaan casharka
-            mediaContainer.innerHTML = `
-                <video controls controlsList="nodownload" oncontextmenu="return false;" autoplay>
-                    <source src="${data.videoUrl}" type="video/mp4">
-                    Browser-kaagu ma caawinayo nidaamkan video player-ka ah.
-                </video>
-            `;
-            
-            document.getElementById("videoPlayerBox").style.display = "block";
-            document.getElementById("videoPlayerBox").scrollIntoView({ behavior: 'smooth' });
-        }
     }
 
     function logout() {
