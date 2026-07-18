@@ -23,14 +23,14 @@
 
 <div class="header">
     <div>
-        <h2 id="welcomeText">Ku soo dhawaada, Arday!</h2>
+        <h2 id="welcomeText">Ku soo dhawoow!</h2>
         <p style="font-size: 14px; opacity: 0.9;">Kani waa boggaaga casharrada rasmiga ah</p>
     </div>
     <a href="#" onclick="logout()" class="btn-logout">Ka Bax (Logout)</a>
 </div>
 
 <div class="container">
-    <h3>Maadooyinka Neku Qoran:</h3>
+    <h3>Maadooyinka kuu furan :</h3>
     <div id="coursesContainer" class="courses-grid"></div>
 </div>
 
@@ -45,7 +45,7 @@
         "communication": {
             title: "Xirfadaha Xiriirka (Communication Skills)",
             desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
-            link: "C:\Users\maxamuud\OneDrive\Document1 - Word 2026-07-18 13-51-41.mp4"
+            link: "https://youtube.com"
         },
         "physics": {
             title: "Fiisigis (Physics)",
@@ -55,7 +55,7 @@
         "arabic": {
             title: "Luuqada Carabiga (Arabic Language)",
             desc: "Barashada naxwaha, higgaadda, iyo ku hadalka Luuqada Carabiga.",
-            link: "https://www.youtube.com/watch?v=xRGgMVfHhKI&list=PLk2TUNzJ6VBKXDmnYpZKBYoYrP0r1R-0c&index=1"
+            link: "https://youtube.com"
         }
     };
 
@@ -90,7 +90,7 @@
         const maadooyinkaArdayga = xogtaArdayda[username] || [];
 
         if (maadooyinkaArdayga.length === 0) {
-            container.innerHTML = "<p>Weli laguma qorin wax maado ah. Fadlan la xiriir maamulka Biile E-learning.</p>";
+            container.innerHTML = "<p>Weli laguma qorin wax maado ah. Fadlan la xiriir maamulka Biile E-learning Ahmed Abdulkadir Biile +252907860356.</p>";
             return;
         }
 
@@ -101,7 +101,7 @@
                     <div class="course-card">
                         <h4>${data.title}</h4>
                         <p>${data.desc}</p>
-                        <a href="${data.link}" target="_blank" class="btn-watch">Fura Casharka →</a>
+                        <a href="${data.link}" target="_blank" class="btn-watch">Furo Casharka →</a>
                     </div>
                 `;
                 container.innerHTML += card;
