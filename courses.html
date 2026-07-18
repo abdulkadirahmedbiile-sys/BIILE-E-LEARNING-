@@ -10,16 +10,12 @@
         .header { background: #1b6333; color: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; }
         .container { max-width: 1000px; margin: 0 auto; }
         h3 { color: #1b6333; margin-bottom: 20px; }
-        
-        /* Shaxda Maadooyinka */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .course-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-top: 4px solid #1b6333; transition: 0.3s; }
         .course-card:hover { transform: translateY(-5px); }
         .course-card h4 { margin-bottom: 10px; color: #124222; }
         .course-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
-        
-        /* Badhamada */
-        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; text-align: center; width: 100%; }
+        .btn-watch { display: inline-block; padding: 10px 15px; background: #1b6333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; text-align: center; width: 100%; }
         .btn-watch:hover { background: #124222; }
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
     </style>
@@ -42,7 +38,6 @@
 </div>
 
 <script>
-    // Linkiyadii caadiga ahaa ayaa dib loogu soo celiyay si loogu furo nidaamka daaqada yar ee gaarka ah
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -66,7 +61,6 @@
         }
     };
 
-    // Maado qeybsiga ardayda rasmiga ah
     const xogtaArdayda = {
         "siciid": ["xisaab"], "nuur": ["xisaab"], "faarax": ["xisaab"], 
         "guuleed": ["xisaab"], "carab": ["xisaab"], "kuusane": ["xisaab"], "buurane": ["xisaab"],
@@ -90,15 +84,16 @@
         const maadooyinkaArdayga = xogtaArdayda[username] || [];
 
         if (maadooyinkaArdayga.length === 0) {
-            container.innerHTML = "<p>Weli laguma qorin wax maado ah. Fadlan la xiriir maamulka Biile E-learning.</p>";
+            container.innerHTML = "<p>Weli laguma qorin wax maado ah.</p>";
             return;
         }
 
         maadooyinkaArdayga.forEach(maadoKey => {
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
+                // target="_blank" wuxuu casharka ku furayaa tab cusub si uusan u xannibmin
                 const badhanMuuqaal = data.videoUrl ? 
-                    `<button onclick="furaDaaqadCashar('${data.videoUrl}')" class="btn-watch">Fura Casharka →</button>` : 
+                    `<a href="${data.videoUrl}" target="_blank" class="btn-watch">Fura Casharka →</a>` : 
                     `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
@@ -113,26 +108,10 @@
         });
     }
 
-    // FARSAMADA CUSUB: Daaqad yar oo dul-sallaxanta oo cabbiran (Pop-up Window)
-    function furaDaaqadCashar(url) {
-        const dherer = 550;
-        const ballac = 850;
-        const bidix = (screen.width - ballac) / 2;
-        const sare = (screen.height - dherer) / 2;
-        
-        // Tani waxay qasbaysaa in browser-ku furo kaliya sanduuq yar oo video-ga uu ku dhex jiro
-        window.open(
-            url, 
-            "BiileELearningPlayer", 
-            `width=${ballac},height=${dherer},top=${sare},left=${bidix},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
-        );
-    }
-
     function logout() {
         localStorage.removeItem("loggedInUser");
         window.location.href = "index.html";
     }
 </script>
-
 </body>
 </html>
