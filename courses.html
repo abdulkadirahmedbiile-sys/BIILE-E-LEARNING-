@@ -11,10 +11,10 @@
         .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
         h3 { color: #1b6333; }
         
-        /* Player-ka Muuqaalka ee rasmiga ah (Video Box) */
+        /* Player-ka Google Drive ee rasmiga ah (Video Box) */
         .video-player-section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 5px solid #1b6333; display: none; }
-        .video-container { position: relative; width: 100%; max-width: 800px; margin: 15px auto 0; border-radius: 8px; overflow: hidden; background: #000; }
-        .video-container video { width: 100%; height: auto; max-height: 450px; display: block; background: #000; }
+        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
         /* Shaxda Maadooyinka */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -33,7 +33,7 @@
 
 <div class="header">
     <div>
-        <h2 id="welcomeText">Soo dhawoow, Arday!</h2>
+        <h2 id="welcomeText">Ku soo dhawaada, Arday!</h2>
         <p style="font-size: 14px; opacity: 0.9;">Kani waa boggaaga casharrada rasmiga ah</p>
     </div>
     <a href="#" onclick="logout()" class="btn-logout">Ka Bax (Logout)</a>
@@ -41,46 +41,46 @@
 
 <div class="container">
     
-    <!-- Sanduuqa Video Player-ka ee rasmiga ah -->
+    <!-- Sanduuqa weyn ee Video-ga lagu dhex daawanayo (Google Drive Player) -->
     <div id="videoPlayerBox" class="video-player-section">
         <h4 id="playingVideoTitle" style="color: #124222;">Hadda Daawado: </h4>
-        <div id="mediaContainer" class="video-container">
-            <!-- Muuqaalka tooska ah ayaa halkan ku dhex dhashaya -->
+        <div class="video-container">
+            <iframe id="videoIframe" src="" allow="autoplay"></iframe>
         </div>
     </div>
 
     <div>
-        <h3>Maadada kuu diyaarsan:</h3>
+        <h3>Maadooyinka Neku Qoran:</h3>
         <div id="coursesContainer" class="courses-grid"></div>
     </div>
 </div>
 
 <script>
-    // LIISKA CASHARRADA: Halkaan ayaad ku qoraysaa magaca dhabta ah ee fail-ka video-ga ee aad GitHub soo gelisay
+    // Liiska afarta maado oo wata linkiyada rasmiga ah ee shaqaynaya ee Google Drive
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
             desc: "Weli lama soo galin maadada, fadlan la xiriir maamulka Biile E-learning.",
-            videoFile: "" // Maran madaama aan la hayn
+            videoUrl: "" 
         },
         "communication": {
             title: "Xirfadaha Xiriirka (Communication Skills)",
             desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
-            videoFile: "./communication_skills.mp4" // MAGACA FAIL-KA: Ku beddel magaca sawirkaaga dhabta ah ee GitHub
+            videoUrl: "https://google.com" 
         },
         "physics": {
             title: "Fiisigis (Physics)",
             desc: "Weli lama soo galin maadada, fadlan la xiriir maamulka Biile E-learning.",
-            videoFile: "" 
+            videoUrl: "" 
         },
         "arabic": {
             title: "Luuqada Carabiga (Arabic Language)",
             desc: "Barashada naxwaha, higgaadda, iyo ku hadalka Luuqada Carabiga.",
-            videoFile: "./arabic_lesson1.mp4" // MAGACA FAIL-KA: Ku beddel magaca sawirkaaga dhabta ah ee GitHub
+            videoUrl: "https://google.com" 
         }
     };
 
-    // Maado qeybsiga ardayda rasmiga ah
+    // Maado qeybsiga dhamaan ardaydaadii rasmiga ahayd
     const xogtaArdayda = {
         "siciid": ["xisaab"], "nuur": ["xisaab"], "faarax": ["xisaab"], 
         "guuleed": ["xisaab"], "carab": ["xisaab"], "kuusane": ["xisaab"], "buurane": ["xisaab"],
@@ -111,8 +111,8 @@
         maadooyinkaArdayga.forEach(maadoKey => {
             const data = liiskaMaadooyinka[maadoKey];
             if (data) {
-                const badhanMuuqaal = data.videoFile ? 
-                    `<button onclick="shidMuuqaal('${maadoKey}')" class="btn-watch">Fura Casharka →</button>` : 
+                const badhanMuuqaal = data.videoUrl ? 
+                    `<button onclick="daawadoVideo('${maadoKey}')" class="btn-watch">Fura Casharka →</button>` : 
                     `<span style="color: #dc3545; font-weight: 500; font-size: 14px;">⚠️ Diyaar ma aha</span>`;
 
                 const card = `
@@ -127,22 +127,11 @@
         });
     }
 
-    // Habka loo shido video-ga tooska ah ee folder-ka ku jira
-    function shidMuuqaal(maadoKey) {
+    function daawadoVideo(maadoKey) {
         const data = liiskaMaadooyinka[maadoKey];
-        const mediaContainer = document.getElementById("mediaContainer");
-        
-        if (data && data.videoFile) {
+        if (data && data.videoUrl) {
             document.getElementById("playingVideoTitle").innerText = "Hadda Daawado: " + data.title;
-            
-            // Waxaan ku darnay 'controlsList="nodownload"' si looga hortago in ardaydu soo degsadaan casharka
-            mediaContainer.innerHTML = `
-                <video controls controlsList="nodownload" oncontextmenu="return false;">
-                    <source src="${data.videoFile}" type="video/mp4">
-                    Browser-kaagu ma caawinayo nidaamkan video player-ka ah.
-                </video>
-            `;
-            
+            document.getElementById("videoIframe").src = data.videoUrl;
             document.getElementById("videoPlayerBox").style.display = "block";
             document.getElementById("videoPlayerBox").scrollIntoView({ behavior: 'smooth' });
         }
