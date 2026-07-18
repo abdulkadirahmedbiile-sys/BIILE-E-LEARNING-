@@ -7,25 +7,25 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: #f4f6f4; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        /* Sanduuqa weyn ee login-ka */
         .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 100%; max-width: 450px; text-align: center; border-top: 5px solid #1b6333; }
         
         /* Sanduuqa loogada */
         .logo-box {
             width: 100%;
-            height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
-            overflow: hidden;
+            margin-bottom: 20px;
         }
 
-        /* Loogada oo lagu weyneeyay Zoom gudaheeda */
+        /* Loogada cusub */
         .logo-img { 
-            max-width: 100%;
-            max-height: 99%;
-            object-fit: contain; 
-            transform: scale(1.3); 
+            width: 100%;
+            max-width: 280px; 
+            height: auto; 
+            display: block;
         }
         
         h2 { color: #1b6333; margin-bottom: 25px; font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
@@ -35,18 +35,24 @@
         input:focus { border-color: #1b6333; box-shadow: 0 0 5px rgba(27,99,51,0.3); }
         button { width: 100%; padding: 12px; background: #1b6333; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #124222; }
+
+        /* Fariinta Khaladka */
+        .error-message { color: #dc3545; font-size: 14px; margin-bottom: 15px; display: none; font-weight: 500; }
     </style>
 </head>
 <body>
 
 <div class="login-container">
     <div class="logo-box">
-        <!-- Habka saxda ah ee GitHub Pages loogu xidho fail-ka leh booska bannaan iyo jpeg -->
-        <img src="./logo.jpeg" alt="BIILE E-LEARNING Logo" class="logo-img"> 
+        <!-- Hubi in magaca sawirkaaga GitHub uu yahay logo_new.png -->
+        <img src="./logo_new.png" alt="BIILE E-LEARNING Logo" class="logo-img"> 
     </div>
     
     <h2>BIILE E-LEARNING</h2>
     
+    <!-- Meesha ay fariinta khaldku ka soo baxayso -->
+    <div id="errorMsg" class="error-message">Magaca ama furaha aad gelisay waa khalad!</div>
+
     <form id="loginForm" onsubmit="gudbi(event)">
         <div class="input-group">
             <label for="username">Magaca Ardayga (Username)</label>
@@ -61,11 +67,32 @@
 </div>
 
 <script>
+    // Xogta ardayda tusaalaha ah ee aad siin karto ardaydaada
+    const ardayda = {
+        "biile01": "arday123",
+        "ahmed": "biile2026",
+        "soomaali": "guul123"
+    };
+
     function gudbi(event) {
         event.preventDefault();
-        window.location.href = "courses.html";
+        
+        const usernameInput = document.getElementById("username").value.trim();
+        const passwordInput = document.getElementById("password").value;
+        const errorMsg = document.getElementById("errorMsg");
+
+        // Hubinta haddii magaca iyo furaha ay sax yihiin
+        if (ardayda[usernameInput] && ardayda[usernameInput] === passwordInput) {
+            errorMsg.style.display = "none";
+            // Haddii uu sax yahay wuxuu toos u aadi doonaa bogga casharada
+            window.location.href = "courses.html";
+        } else {
+            // Haddii uu khalad yahay fariinta khaldka ayaa soo baxaysa
+            errorMsg.style.display = "block";
+        }
     }
 </script>
 
 </body>
 </html>
+
