@@ -7,20 +7,23 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: #f4f6f4; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: center; border-top: 5px solid #1b6333; }
+        .login-container { background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 100%; max-width: 450px; text-align: center; border-top: 5px solid #1b6333; overflow: hidden; }
         
-        /* Halkan waxaa lagu hagaajiyay cabbirka logada */
-        .logo-img { width: 120px; height: 120px; object-fit: contain; margin: 0 auto 15px; display: block; }
+        /* Cabbirka halkan ayaa si weyn loogu kordhiyay laguna weyneeyay Zoom */
+        .logo-img { 
+            width: 320px; 
+            height: 180px; 
+            object-fit: contain; 
+            margin: -10px auto 10px; 
+            display: block;
+            transform: scale(1.4); /* Tani waxay weynaynaysaa logada dhexdeeda si ay u muuqato */
+        }
         
-        h2 { color: #1b6333; margin-bottom: 25px; font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+        h2 { color: #1b6333; margin-bottom: 25px; font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
         .input-group { margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 5px; color: #444; font-size: 14px; font-weight: 500; }
         input { width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 16px; outline: none; transition: 0.3s; }
-        
-        /* Midabka marka la gujiyo input-ka waxaa laga dhigay cagaar */
         input:focus { border-color: #1b6333; box-shadow: 0 0 5px rgba(27,99,51,0.3); }
-        
-        /* Badhanka waxaa loo beddelay cagaar */
         button { width: 100%; padding: 12px; background: #1b6333; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #124222; }
     </style>
@@ -28,7 +31,7 @@
 <body>
 
 <div class="login-container">
-    <!-- Logadii cagaarka ahayd ee bilaa background-ka ahayd (Hubi in magaca sawirku yahay LOGO.png) -->
+    <!-- Logada weyneeyey -->
     <img src="LOGO.png" alt="BIILE E-LEARNING Logo" class="logo-img"> 
     
     <h2>BIILE E-LEARNING</h2>
