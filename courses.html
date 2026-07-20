@@ -74,12 +74,12 @@
         "xisaab": {
             title: "Xisaab (Mathematics)",
             desc: "Barashada xisaabta guud iyo qaaciidooyinka muhiimka ah.",
-            videoUrl: "" // Maadaama uusan link lahayn, wuxuu dhihi doonaa ma diyrsana
+            videoUrl: "" 
         },
         "communication": {
             title: "Xirfadaha Xiriirka (Communication Skills)",
             desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
-            // Link-gii Google Drive ee rasmiga ahaa oo loo beddelay iframe preview si uu toos ugu shaqeeyo shabakada
+            // GUULEYSI: Waxaa loo beddelay '://google.com' si looga guuleysto ciladdii "Refused to connect"
             videoUrl: "https://google.com" 
         },
         "physics": {
@@ -147,7 +147,6 @@
         document.getElementById("modalVideoTitle").innerText = maadada.title;
         const wrapper = document.getElementById("playerWrapper");
         
-        // Haddi uusan jirin Link-ga Muuqaalka (videoUrl)
         if (!maadada.videoUrl) {
             wrapper.parentNode.style.paddingBottom = "0"; 
             wrapper.parentNode.style.height = "auto";
@@ -157,11 +156,9 @@
                     <p>Casharkaan weli ma diyaarsana. <br>Fadlan la xiriir maamulka Biile E-learning.</p>
                 </div>`;
         } else {
-            // Haddii uu linkigu jiro, wuxuu ku furayaa Iframe
             wrapper.parentNode.style.paddingBottom = "56.25%"; 
             wrapper.parentNode.style.height = "0";
-            
-            // Maadaama koodhka Drive-ku uu yahay Iframe Preview, wuxuu toos ugu furmayaa halkan
+            // Halkan waxaa lagu daray 'allowfullscreen' si ardaygu u weyneyn karo shaashada
             wrapper.innerHTML = `<iframe src="${maadada.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         }
         
@@ -171,7 +168,7 @@
     // SHAQADA XIREYSA CASHARKA
     function XirCasharka() {
         document.getElementById("videoModal").style.display = "none";
-        document.getElementById("playerWrapper").innerHTML = ""; // Joojinta codka gadaal ka shaqaynaya
+        document.getElementById("playerWrapper").innerHTML = ""; 
     }
 
     function logout() {
