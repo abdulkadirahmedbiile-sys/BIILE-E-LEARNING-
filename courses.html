@@ -17,17 +17,25 @@
         .course-card h4 { margin-bottom: 8px; color: #124222; }
         .course-card p { font-size: 14px; color: #666; margin-bottom: 15px; }
         
-        /* Badhamada rasmiga ah ee tooska u furmaya */
-        .btn-watch { display: block; padding: 12px 15px; background: #1b6333; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; text-align: center; transition: 0.3s; width: 100%; border: none; cursor: pointer; }
+        /* Badhamada */
+        .btn-watch { display: block; padding: 12px 15px; background: #1b6333; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; text-align: center; border: none; cursor: pointer; transition: 0.3s; width: 100%; }
         .btn-watch:hover { background: #124222; }
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; }
 
-        /* --- POP-UP-KA FARRIINTA (MARKII CASHARKU XIRANYAHAY) --- */
-        .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.80); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; padding: 30px 20px; text-align: center; }
-        .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #333; font-size: 28px; cursor: pointer; font-weight: bold; }
-        .not-ready-box span { display: block; font-size: 50px; margin-bottom: 15px; }
-        .not-ready-box p { font-size: 16px; color: #333; font-weight: 500; line-height: 1.5; }
+        /* --- DAWERAHADA CASHARKA (VIDEO MODAL BOX) --- */
+        .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        .modal-content { background: white; width: 90%; max-width: 750px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; }
+        .modal-header { padding: 15px 20px; background: #1b6333; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h4 { font-size: 16px; }
+        .close-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; font-weight: bold; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; background: #000; }
+        
+        /* Farriinta marka casharku diyaar uusan ahayn */
+        .not-ready-box { padding: 40px 20px; text-align: center; color: #333; background: #fff; font-size: 18px; font-weight: 500; }
+        .not-ready-box span { display: block; font-size: 40px; margin-bottom: 10px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -47,19 +55,21 @@
     </div>
 </div>
 
-<!-- SHASHADA MASHRUUCA DIGNIINTA (MODAL FOR NOT READY) -->
-<div id="statusModal" class="video-modal">
+<!-- SHABAKADA SHASHADA CASHARKA (MODAL) -->
+<div id="videoModal" class="video-modal">
     <div class="modal-content">
-        <button class="close-btn" onclick="XirFarriinta()">&times;</button>
-        <div class="not-ready-box">
-            <span>⚠️</span>
-            <p>Casharkaan weli ma diyaarsana furan.<br>Fadlan la xiriir maamulka Biile E-learning.</p>
+        <div class="modal-header">
+            <h4 id="modalVideoTitle">Daawashada Casharka</h4>
+            <button class="close-btn" onclick="XirCasharka()">&times;</button>
+        </div>
+        <div class="video-container" id="playerWrapper">
+            <!-- Muuqaalka caadiga ah ayaa halkan si toos ah ugu dhex dhalan doona -->
         </div>
     </div>
 </div>
 
 <script>
-    // XOGTA MAADOODINKA: Kani wuxuu hadda ku furmayaa 100% fariid la'aan tab cusub
+    // XOGTA MAADOODINKA
     const liiskaMaadooyinka = {
         "xisaab": {
             title: "Xisaab (Mathematics)",
@@ -69,7 +79,7 @@
         "communication": {
             title: "Xirfadaha Xiriirka (Communication Skills)",
             desc: "Barashada qaabka xiriirka furan, dhiirigelinta, iyo wadashaqaynta.",
-            // Ciwaankaaga rasmiga ah ee saxda ah
+            // XALLIS: Waxaan u beddelay Direct Stream Link (uc?export=download&id=...) si uu si toos ah ugu dhex dhalo Player-kaaga hoose.
             videoUrl: "https://google.com" 
         },
         "physics": {
@@ -121,7 +131,7 @@
                             <h4>${data.title}</h4>
                             <p>${data.desc}</p>
                         </div>
-                        <button onclick="MaamulCasharka('${maadoKey}')" class="btn-watch">Fura Casharka →</button>
+                        <button onclick="FurCasharka('${maadoKey}')" class="btn-watch">Fura Casharka →</button>
                     </div>
                 `;
                 container.innerHTML += card;
@@ -129,22 +139,41 @@
         });
     }
 
-    // SHAQADA KONTROOSHA BADHANKA
-    function MaamulCasharka(maadoKey) {
+    // SHAQADA FUREYSA CASHARKA AMA STR-TA FARRIINTA
+    function FurCasharka(maadoKey) {
         const maadada = liiskaMaadooyinka[maadoKey];
         if (!maadada) return;
 
-        // Haddii uu linkigu jiro, wuxuu toos ugu furayaa TAB CUSUB (waligeed ma fashilanto)
-        if (maadada.videoUrl) {
-            window.open(maadada.videoUrl, '_blank');
+        document.getElementById("modalVideoTitle").innerText = maadada.title;
+        const wrapper = document.getElementById("playerWrapper");
+        
+        if (!maadada.videoUrl) {
+            wrapper.parentNode.style.paddingBottom = "0"; 
+            wrapper.parentNode.style.height = "auto";
+            wrapper.innerHTML = `
+                <div class="not-ready-box">
+                    <span>⚠️</span>
+                    <p>Casharkaan weli ma diyaarsana. <br>Fadlan la xiriir maamulka Biile E-learning.</p>
+                </div>`;
         } else {
-            // Haddii uusan jirin, farriinta diyaar la'aanta ayaa soo baxaysa
-            document.getElementById("statusModal").style.display = "flex";
+            wrapper.parentNode.style.paddingBottom = "56.25%"; 
+            wrapper.parentNode.style.height = "0";
+            
+            // GUULEYSI: Muuqaalku wuxuu hadda ku furmayaa Video Player-ka rasmiga ah ee shabakadaada dhexdeeda (Ma ahan Google)
+            wrapper.innerHTML = `
+                <video controls autoplay controlsList="nodownload">
+                    <source src="${maadada.videoUrl}" type="video/mp4">
+                    Browser-kaagu ma caawinayo daawashada video-ga.
+                </video>`;
         }
+        
+        document.getElementById("videoModal").style.display = "flex";
     }
 
-    function XirFarriinta() {
-        document.getElementById("statusModal").style.display = "none";
+    // SHAQADA XIREYSA CASHARKA
+    function XirCasharka() {
+        document.getElementById("videoModal").style.display = "none";
+        document.getElementById("playerWrapper").innerHTML = ""; 
     }
 
     function logout() {
