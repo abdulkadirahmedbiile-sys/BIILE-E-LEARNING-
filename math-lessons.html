@@ -82,20 +82,21 @@
         <!-- Qaybta Video-ga -->
         <div class="main-content">
             <div class="video-wrapper">
-                <!-- Khadkan waa la saxay si uu video-gii hore u shaqeeyo -->
+                <!-- Video tijaabo ah oo boqolkiiba boqol shaqaynaya meel kasta -->
                 <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
             </div>
             <h2 class="lesson-title" id="currentTitle">Casharka 1aad: Hordhaca Xisaabta</h2>
-            <p class="lesson-desc" id="currentDesc">Kuxsoo dhawaaw casharka koowaad ee xisaabta.</p>
+            <p class="lesson-desc" id="currentDesc">Ku soo dhawaaw casharka koowaad ee xisaabta aasaasiga ah.</p>
         </div>
 
         <!-- Qaybta Liiska Casharada -->
         <div class="sidebar">
             <h3>Liiska Casharrada</h3>
             <ul class="lesson-list">
-                <li class="lesson-item active" onclick="badalVideo('Casharka 1aad: Hordhaca Xisaabta', 'Kuxsoo dhawaaw casharka koowaad ee xisaabta.', 'VnDpb2it6-s', this)">Ch 1: Hordhaca Xisaabta</li>
-                <li class="lesson-item" onclick="badalVideo('Casharka 2aad: Isku-darka iyo Kala goynta', 'Casharkaan waxaan si faahfaahsan ugu baran doonaa xeerarka isku-darka.', 'VIDEO_ID_2', this)">Ch 2: Isku-darka & Ka-goynta</li>
-                <li class="lesson-item" onclick="badalVideo('Casharka 3aad: Isku-dhufashada iyo Qaybinta', 'Baro hababka ugu fudud ee loo isku-dhufto tirooyinka waaweyn.', 'VIDEO_ID_3', this)">Ch 3: Isku-dhufashada & Qaybinta</li>
+                <!-- Halkan waxaa ku jira koodhkii tijaabada -->
+                <li class="lesson-item active" onclick="badalVideo('Casharka 1aad: Hordhaca Xisaabta', 'Ku soo dhawaaw casharka koowaad ee xisaabta aasaasiga ah.', 'dQw4w9WgXcQ', this)">Ch 1: Hordhaca Xisaabta</li>
+                <li class="lesson-item" onclick="badalVideo('Casharka 2aad: Isku-darka iyo Kala goynta', 'Casharkaan waxaan si faahfaahsan ugu baran doonaa xeerarka isku-darka.', 'dQw4w9WgXcQ', this)">Ch 2: Isku-darka & Ka-goynta</li>
+                <li class="lesson-item" onclick="badalVideo('Casharka 3aad: Isku-dhufashada iyo Qaybinta', 'Baro hababka ugu fudud ee loo isku-dhufto tirooyinka waaweyn.', 'dQw4w9WgXcQ', this)">Ch 3: Isku-dhufashada & Qaybinta</li>
             </ul>
         </div>
     </div>
@@ -105,7 +106,7 @@
             document.getElementById('currentTitle').innerText = title;
             document.getElementById('currentDesc').innerText = desc;
             
-            // Khadkan isna waa la saxay si uu u isticmaalo habka saxda ah ee embed/
+            // Habka rasmiga ah ee dhex-gelinta video-ga
             document.getElementById('videoPlayer').src = "https://youtube.com" + videoId;
 
             let items = document.querySelectorAll('.lesson-item');
