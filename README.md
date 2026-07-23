@@ -11,7 +11,6 @@ A comprehensive, scalable e-learning platform built with React, Node.js, and Pos
 - Complete assignments and quizzes
 - Track learning progress
 - Participate in discussions
-- Download course materials
 
 ### For Teachers
 - Create and manage courses
@@ -19,7 +18,6 @@ A comprehensive, scalable e-learning platform built with React, Node.js, and Pos
 - Create assignments and quizzes
 - Grade submissions
 - Track student progress
-- Analytics and reporting
 
 ### Platform Features
 - Scalable to 1000+ users
