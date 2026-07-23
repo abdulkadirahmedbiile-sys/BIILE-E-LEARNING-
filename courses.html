@@ -95,9 +95,9 @@
     </div>
 
 <script>
-    // 1. LIISKA KOORSOOYINKA (Halkan ku dar koorsooyinka cusub adoo raacaya qaabkan)
+    // 1. LIISKA KOORSOOYINKA (Sawirka jaldiga xisaabta waa lagu daray halkan)
     const dhamaanKoorsooyinka = [
-        { id: "MATH101", name: "Mathematics", cover: "cover.png" },
+        { id: "MATH101", name: "Mathematics", cover: "math-cover.png" },
         { id: "COMM101", name: "Communication Skills", cover: "https://unsplash.com" },
         { id: "PHYS101", name: "Physics", cover: "https://unsplash.com" },
         { id: "ARAB101", name: "Arabic Language", cover: "https://unsplash.com" },
@@ -107,18 +107,11 @@
 
     // 2. MAADO-YINKA ARDAY KASTA UU DHIGTO
     const xogtaArdaydaKoorsooyinka = {
-        // 7 Arday oo Xisaab ah
         "siciid": ["MATH101"], "nuur": ["MATH101"], "faarax": ["MATH101"], 
         "guuleed": ["MATH101"], "carab": ["MATH101"], "kuusane": ["MATH101"], "buurane": ["MATH101"],
-        
-        // 6 Arday oo Communication Skills ah
         "yusro": ["COMM101"], "falis": ["COMM101"], "nuurt": ["COMM101"], 
         "dhuuxo": ["COMM101"], "sareedo": ["COMM101"], "barni": ["COMM101"],
-        
-        // 3 Arday oo Physics ah
         "cali": ["PHYS101"], "lugay": ["PHYS101"], "afey": ["PHYS101"],
-        
-        // 2 Arday oo Arabic Language ah
         "saxar": ["ARAB101"], "cumar": ["ARAB101"]
     };
 
@@ -157,7 +150,8 @@
                         <h3 class="course-name">${koorso.name}</h3>
                         <p class="course-id">ID: ${koorso.id}</p>
                     </div>
-                    <button class="join-btn" onclick="GAL('${koorso.name}')">Ku Biir Fasalka</button>
+                    <!-- Halkan waxaan ku saxnay qaabka wicitaanka Function-ka -->
+                    <button class="join-btn" onclick="GAL('${koorso.id}')">Ku Biir Fasalka</button>
                 </div>
             `;
             wrapper.appendChild(card);
@@ -169,8 +163,13 @@
         window.location.href = "index.html";
     }
 
-    function furo(magacaKoorsada) {
-        alert("Waxaad furanaysaa maadada: " + magacaKoorsada);
+    // 3. MAAMULKA FURIDDA BOGGA CASHARADA CUSUB
+    function GAL(idKoorsada) {
+        if (idKoorsada === "MATH101") {
+            window.location.href = "math-lessons.html"; 
+        } else {
+            alert("maadadan wali lama furin ama diyaar ma aha! la xiriir maamulka Eng.Ahmed Biile 907854001");
+        }
     }
 </script>
 
