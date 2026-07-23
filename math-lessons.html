@@ -82,11 +82,11 @@
         <!-- Qaybta Video-ga -->
         <div class="main-content">
             <div class="video-wrapper">
-                <!-- Halkaan ku beddel "VIDEO_ID_HERE" oo geli koodka video-gaaga YouTube-ka (tusaale: dQw4w9WgXcQ) -->
-              <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
+                <!-- Khadkan waa la saxay si uu video-gii hore u shaqeeyo -->
+                <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
             </div>
-            <h2 class="lesson-title" id="currentTitle">Casharka 1aad: Hordhaca Xisaabta Aasaasiga ah</h2>
-            <p class="lesson-desc" id="currentDesc">Kuxsoo dhawaaw casharka koowaad ee xisaabta. Maanta waxaan ku baran doonaa fikradaha guud iyo aasaaska maaddada xisaabta.</p>
+            <h2 class="lesson-title" id="currentTitle">Casharka 1aad: Hordhaca Xisaabta</h2>
+            <p class="lesson-desc" id="currentDesc">Kuxsoo dhawaaw casharka koowaad ee xisaabta.</p>
         </div>
 
         <!-- Qaybta Liiska Casharada -->
@@ -102,12 +102,12 @@
 
     <script>
         function badalVideo(title, desc, videoId, element) {
-            // Beddel qoraalada iyo video-ga
             document.getElementById('currentTitle').innerText = title;
             document.getElementById('currentDesc').innerText = desc;
+            
+            // Khadkan isna waa la saxay si uu u isticmaalo habka saxda ah ee embed/
             document.getElementById('videoPlayer').src = "https://youtube.com" + videoId;
 
-            // Beddel muuqalka list-ka la doortay
             let items = document.querySelectorAll('.lesson-item');
             items.forEach(item => item.classList.remove('active'));
             element.classList.add('active');
