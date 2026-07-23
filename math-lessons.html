@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasalka Xisaabta - BIILE E-LEARNING</title>
+    <style>
+        :root {
+            --primary-color: #1b6333;
+            --hover-color: #124222;
+            --bg-color: #f4f6f4;
+            --text-color: #333;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-color); color: var(--text-color); }
+        
+        header { 
+            background: white; 
+            padding: 15px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header-logo { height: 40px; }
+        .back-btn { 
+            padding: 8px 16px; 
+            background: var(--primary-color); 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+        }
+        .back-btn:hover { background: var(--hover-color); }
+
+        .classroom-container { 
+            display: flex; 
+            max-width: 1400px; 
+            margin: 30px auto; 
+            gap: 30px; 
+            padding: 0 20px; 
+        }
+        
+        /* Qaybta Video-ga weyn */
+        .main-content { flex: 3; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .lesson-title { margin-top: 20px; color: var(--primary-color); font-size: 24px; }
+        .lesson-desc { margin-top: 10px; color: #666; line-height: 1.6; }
+
+        /* Liiska Casharada */
+        .sidebar { flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+        .sidebar h3 { color: var(--primary-color); margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .lesson-list { list-style: none; }
+        .lesson-item { 
+            padding: 12px; 
+            border: 1px solid #eee; 
+            margin-bottom: 10px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-weight: 500;
+        }
+        .lesson-item:hover { background: #f0fdf4; border-color: var(--primary-color); }
+        .lesson-item.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        @media (max-width: 900px) {
+            .classroom-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="./logo.jpeg" alt="BIILE Logo" class="header-logo">
+        <a href="dashboard.html" class="back-btn">← Ku Laabo Maadooyinka</a>
+    </header>
+
+    <div class="classroom-container">
+        <!-- Qaybta Video-ga -->
+        <div class="main-content">
+            <div class="video-wrapper">
+                <!-- Halkaan ku beddel "VIDEO_ID_HERE" oo geli koodka video-gaaga YouTube-ka (tusaale: dQw4w9WgXcQ) -->
+                <iframe id="videoPlayer" src="https://youtube.com" allowfullscreen></iframe>
+            </div>
+            <h2 class="lesson-title" id="currentTitle">Casharka 1aad: Hordhaca Xisaabta Aasaasiga ah</h2>
+            <p class="lesson-desc" id="currentDesc">Kuxsoo dhawaaw casharka koowaad ee xisaabta. Maanta waxaan ku baran doonaa fikradaha guud iyo aasaaska maaddada xisaabta.</p>
+        </div>
+
+        <!-- Qaybta Liiska Casharada -->
+        <div class="sidebar">
+            <h3>Liiska Casharrada</h3>
+            <ul class="lesson-list">
+                <li class="lesson-item active" onclick="badalVideo('Casharka 1aad: Hordhaca Xisaabta', 'Kuxsoo dhawaaw casharka koowaad ee xisaabta.', 'VIDEO_ID_1', this)">Ch 1: Hordhaca Xisaabta</li>
+                <li class="lesson-item" onclick="badalVideo('Casharka 2aad: Isku-darka iyo Kala goynta', 'Casharkaan waxaan si faahfaahsan ugu baran doonaa xeerarka isku-darka.', 'VIDEO_ID_2', this)">Ch 2: Isku-darka & Ka-goynta</li>
+                <li class="lesson-item" onclick="badalVideo('Casharka 3aad: Isku-dhufashada iyo Qaybinta', 'Baro hababka ugu fudud ee loo isku-dhufto tirooyinka waaweyn.', 'VIDEO_ID_3', this)">Ch 3: Isku-dhufashada & Qaybinta</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function badalVideo(title, desc, videoId, element) {
+            // Beddel qoraalada iyo video-ga
+            document.getElementById('currentTitle').innerText = title;
+            document.getElementById('currentDesc').innerText = desc;
+            document.getElementById('videoPlayer').src = "https://youtube.com" + videoId;
+
+            // Beddel muuqalka list-ka la doortay
+            let items = document.querySelectorAll('.lesson-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
